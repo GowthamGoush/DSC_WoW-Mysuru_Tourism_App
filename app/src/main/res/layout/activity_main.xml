@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <com.denzcoskun.imageslider.ImageSlider
+        android:id="@+id/image_slider"
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"
+        android:layout_margin="6dp"
+        app:iss_auto_cycle="true"
+        app:iss_period="1000"
+        app:iss_delay="0"
+        app:iss_title_background="@drawable/gradient"
+        />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/button1"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="240dp"
+        android:layout_marginLeft="60dp"
+        app:cardCornerRadius="30dp"
+        />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/button2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="240dp"
+        android:layout_marginRight="60dp"
+        app:cardCornerRadius="30dp"
+        />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/button3"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="400dp"
+        android:layout_marginLeft="60dp"
+        app:cardCornerRadius="30dp"
+        />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/button4"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="400dp"
+        android:layout_marginRight="60dp"
+        app:cardCornerRadius="30dp"
+        />
+
+</RelativeLayout>
