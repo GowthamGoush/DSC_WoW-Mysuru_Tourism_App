@@ -18,9 +18,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.mysurutourism.MainActivity2;
 import com.example.mysurutourism.MapFragment;
 import com.example.mysurutourism.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -60,6 +62,10 @@ public class HomeFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //Fragment childFragment = new MapFragment();
+        //FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        //transaction.replace(R.id.Map_Layout, childFragment).commit();
+
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -73,11 +79,12 @@ public class HomeFragment extends Fragment {
 
         supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.Google_maps);
 
-
-        final String[] placesTypeList = {"atm", "hospital", "restaurant", "Bars", "Railway Station", "Movie Theatre"};
+        final String[] placesTypeList = {"atm", "hospital", "restaurant", "bars", "railwaystation", "movietheatre"};
         String[] placesNameList = {"ATM", "Hospital", "Restaurant", "Bars", "Railway Station", "Movie Theatre"};
 
         spinner.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, placesNameList));
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             getCurrentLocation();
@@ -90,7 +97,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 int pos = spinner.getSelectedItemPosition();
 
-                String url = "https://maps.google.com/maps/api/place/nearbysearch/json?" +
+                String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?" +
                         "location=" + Loc_Lat + "," + Loc_Long + "&radius=5000" +
                         "&type=" + placesTypeList[pos] + "&sensor=true" +
                         "&key=" + getResources().getString(R.string.google_api_key);
@@ -111,14 +118,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onSuccess(Location location) {
                 if(location != null){
-                    Loc_Lat = location.getLatitude();
-                    Loc_Long = location.getLongitude();
+                    Loc_Lat = 12.301244676267595; //location.getLatitude();
+                    Loc_Long = 76.64221003666505; //location.getLongitude();
 
                     supportMapFragment.getMapAsync(new OnMapReadyCallback() {
                         @Override
                         public void onMapReady(GoogleMap googleMap) {
                             map = googleMap;
-                            map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Loc_Lat,Loc_Long),10));
+                            map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Loc_Lat,Loc_Long),15));
                         }
                     });
                 }
