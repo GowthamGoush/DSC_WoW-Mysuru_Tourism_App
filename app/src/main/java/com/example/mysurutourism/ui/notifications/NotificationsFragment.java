@@ -37,10 +37,11 @@ public class NotificationsFragment extends Fragment {
 
     private NotificationsViewModel notificationsViewModel;
     private CardView cardView1,cardView2,cardView3;
-    private RequestQueue requestQueue;
+    private RequestQueue requestQueue,requestQueue1;
     private ImageSlider imageSlider1;
     private List<SlideModel> newsData;
-    private TextView textView;
+    private TextView textView1,textView2,textView3,textView4,textView5;
+    private TextView textView6,textView7,textView8,textView9,textView10,textView11;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -52,56 +53,141 @@ public class NotificationsFragment extends Fragment {
         cardView2 = root.findViewById(R.id.Card_2);
         cardView3 = root.findViewById(R.id.Card_3);
 
-        textView = root.findViewById(R.id.sampletext);
+        cardView1.animate().translationZ(50f).setDuration(1000).start();
+        cardView2.animate().translationZ(50f).translationX(262f).setDuration(1000).start();
+        cardView3.animate().translationZ(50f).translationX(-262f).setDuration(1000).start();
 
-        imageSlider1 = root.findViewById(R.id.newsCovid);
+        textView1 = root.findViewById(R.id.casesIndian);
+        textView2 = root.findViewById(R.id.casesForeign);
+        textView3 = root.findViewById(R.id.casesTotal);
+        textView4 = root.findViewById(R.id.discharged);
+        textView5 = root.findViewById(R.id.dead);
+
+        textView6 = root.findViewById(R.id.casesIndian2);
+        textView7 = root.findViewById(R.id.casesForeign2);
+        textView8 = root.findViewById(R.id.casesTotal2);
+        textView9 = root.findViewById(R.id.discharged2);
+        textView10 = root.findViewById(R.id.dead2);
+        textView11 = root.findViewById(R.id.locUnknown);
 
         newsData = new ArrayList<>();
 
-        requestQueue = Volley.newRequestQueue(getContext());
+        imageSlider1 = root.findViewById(R.id.newsCovid);
 
-        jsonItemReq();
+        newsData.add(new SlideModel("https://bit.ly/2YoJ77H","India - Hindustan Times",ScaleTypes.FIT));
+        newsData.add(new SlideModel("https://bit.ly/2YoJ77H","India - Hindustan Times",ScaleTypes.FIT));
+        newsData.add(new SlideModel("https://bit.ly/2YoJ77H","India - Hindustan Times",ScaleTypes.FIT));
+        //newsData.add(new SlideModel("https://www.hindustantimes.com/rf/image_size_960x540/HT/p2/2020/12/12/Pictures/hindustan-coronavirus-december-infection-collects-hospital-gurugram_70b9feba-3c2f-11eb-b180-736642f23257.jpg","India - Hindustan Times",ScaleTypes.FIT));
+        //newsData.add(new SlideModel("https://www.hindustantimes.com/rf/image_size_960x540/HT/p2/2020/12/12/Pictures/hindustan-coronavirus-december-infection-collects-hospital-gurugram_70b9feba-3c2f-11eb-b180-736642f23257.jpg","India - Hindustan Times",ScaleTypes.FIT));
 
-        newsData.add(new SlideModel("https://i.ytimg.com/vi/GP1j7oBWT90/hqdefault.jpg","demo", ScaleTypes.FIT));
         //imageSlider1.setImageList(newsData,ScaleTypes.FIT);
+
+        requestQueue = Volley.newRequestQueue(getActivity());
+        requestQueue1 = Volley.newRequestQueue(getActivity());
+
+        //jsonNewsFeedReq();
+        jsonCovidFeedReq();
 
         return root;
     }
 
-    public void jsonItemReq(){
+    public void jsonNewsFeedReq(){
 
-        String itemUrl = "https://newsapi.org/v2/top-headlines?country=in&q=covid&apiKey=9e153bcedf7c432f9b6361bdae1ce8c6";
+        String apiKey = "9e153bcedf7c432f9b6361bdae1ce8c6";
+        String itemUrl = "http://newsapi.org/v2/top-headlines?"+"country=in"+"&q=covid"+"&apiKey"+apiKey;
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, itemUrl, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    JSONArray jsonArray = response.getJSONArray("articles");
+        final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, itemUrl, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray jsonArray = response.getJSONArray("articles");
 
-                    for (int i=0;i<jsonArray.length();i++){
-                        JSONObject datas = jsonArray.getJSONObject(i);
+                            for(int i=0;i<jsonArray.length();i++){
+                                JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                        String title = datas.getString("title");
-                        //String name = datas.getString("name");
-                        String imageUrl = datas.getString("urlToImage");
+                                String title = jsonObject.getString("title");
+                                String imageUrl = jsonObject.getString("urlToImage");
 
-                        newsData.add(new SlideModel(imageUrl,title, ScaleTypes.FIT));
-                        if(i==0){
-                            textView.setText(title);
+                                newsData.add(new SlideModel(imageUrl,title,ScaleTypes.FIT));
+                            }
+
+                            imageSlider1.setImageList(newsData,ScaleTypes.FIT);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
                     }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
+                }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                error.printStackTrace();
             }
         });
-        jsonObjectRequest.setTag("REQ");
-        requestQueue.add(jsonObjectRequest);
+
+        requestQueue.add(request);
+    }
+
+    public void jsonCovidFeedReq(){
+
+        String itemUrl = "https://api.rootnet.in/covid19-in/stats/latest";
+
+        final JsonObjectRequest request1 = new JsonObjectRequest(Request.Method.GET, itemUrl, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONObject jsonObject = response.getJSONObject("data");
+                            JSONArray jsonArray = jsonObject.getJSONArray("regional");
+                            JSONObject covidData2 = jsonObject.getJSONObject("summary");
+
+                            int casesIndian = 0,casesForeign = 0,discharged = 0,deaths = 0,casesTotal = 0;
+                            int casesIndian2 = 0,casesForeign2 = 0,discharged2 = 0,deaths2 = 0,casesTotal2 = 0,locUnknown = 0;
+
+                            for(int i=0;i<jsonArray.length();i++){
+                                JSONObject covidData = jsonArray.getJSONObject(i);
+                                String loc = covidData.getString("loc");
+                                if(loc.equals("Karnataka")){
+                                    casesIndian = covidData.getInt("confirmedCasesIndian");
+                                    casesForeign = covidData.getInt("confirmedCasesForeign");
+                                    discharged = covidData.getInt("discharged");
+                                    deaths = covidData.getInt("deaths");
+                                    casesTotal = covidData.getInt("totalConfirmed");
+                                    break;
+                                }
+                            }
+
+                            textView1.setText("Confirmed cases - Indian : "+Integer.toString(casesIndian));
+                            textView2.setText("Confirmed cases - Foreign : "+Integer.toString(casesForeign) );
+                            textView3.setText("Confirmed cases - Total : "+Integer.toString(casesTotal) );
+                            textView4.setText("Discharged cases : "+Integer.toString(discharged) );
+                            textView5.setText("Total death : "+Integer.toString(deaths) );
+
+                            casesIndian2 = covidData2.getInt("confirmedCasesIndian");
+                            casesForeign2 = covidData2.getInt("confirmedCasesForeign");
+                            discharged2 = covidData2.getInt("discharged");
+                            deaths2 = covidData2.getInt("deaths");
+                            casesTotal2 = covidData2.getInt("total");
+                            locUnknown = covidData2.getInt("confirmedButLocationUnidentified");
+
+                            textView6.setText("Confirmed cases - Indian : "+Integer.toString(casesIndian2));
+                            textView7.setText("Confirmed cases - Foreign : "+Integer.toString(casesForeign2) );
+                            textView8.setText("Confirmed cases - Total : "+Integer.toString(casesTotal2) );
+                            textView9.setText("Discharged cases : "+Integer.toString(discharged2) );
+                            textView10.setText("Total death : "+Integer.toString(deaths2) );
+                            textView11.setText("Confirmed but location unknown : "+Integer.toString(locUnknown) );
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+
+        requestQueue1.add(request1);
     }
 }

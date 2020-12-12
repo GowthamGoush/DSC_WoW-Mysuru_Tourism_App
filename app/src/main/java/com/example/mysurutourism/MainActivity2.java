@@ -2,6 +2,7 @@ package com.example.mysurutourism;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.WindowManager;
 
 import com.example.mysurutourism.ui.dashboard.DashboardFragment;
 import com.example.mysurutourism.ui.home.HomeFragment;
@@ -22,6 +23,7 @@ public class MainActivity2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.

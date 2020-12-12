@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.notifications.NotificationsFragment"
-    android:layout_marginBottom="50dp">
+    android:layout_marginBottom="50dp"
+    android:background="@color/cardColor1">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -16,56 +17,198 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/Card_1"
-        android:layout_width="match_parent"
+        android:layout_width="400dp"
         android:layout_height="300dp"
         android:layout_marginTop="50dp"
         android:layout_alignParentLeft="true"
         app:cardCornerRadius="50dp">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            >
+            <com.denzcoskun.imageslider.ImageSlider
+                android:id="@+id/newsCovid"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                app:iss_auto_cycle="true"
+                app:iss_period="1000"
+                app:iss_delay="0"
+                app:iss_title_background="@drawable/gradient"
+                />
+        </RelativeLayout>
+
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/Card_2"
-        android:layout_width="185dp"
-        android:layout_height="300dp"
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
         app:cardCornerRadius="50dp"
         android:layout_below="@id/Card_1"
         android:layout_alignParentLeft="true"
-        android:layout_marginTop="12dp">
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="-100dp"
+        android:layout_marginBottom="12dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            >
-        <com.denzcoskun.imageslider.ImageSlider
-            android:id="@+id/newsCovid"
-            android:layout_width="150dp"
-            android:layout_height="200dp"
-            android:layout_centerInParent="true"
-            app:iss_auto_cycle="true"
-            app:iss_period="1000"
-            app:iss_delay="0"
-            app:iss_title_background="@drawable/gradient"
-            />
+            android:layout_marginVertical="30dp"
+            android:layout_marginHorizontal="4dp">
+
+            <TextView
+                android:id="@+id/Title1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="KARNATAKA STATS"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:id="@+id/casesIndian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10dp"
+                android:text="SAMPLE"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/Title1"
+                android:layout_marginTop="30dp"/>
+
+            <TextView
+                android:id="@+id/casesForeign"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10dp"
+                android:text="SAMPLE"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/casesIndian"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/casesTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10dp"
+                android:text="SAMPLE"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/casesForeign"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/discharged"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10dp"
+                android:text="SAMPLE"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/casesTotal"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/dead"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10dp"
+                android:text="SAMPLE"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/discharged"
+                android:layout_marginTop="10dp"/>
+
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/Card_3"
-        android:layout_width="185dp"
-        android:layout_height="300dp"
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/Card_1"
         app:cardCornerRadius="50dp"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="12dp">
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="-100dp"
+        android:layout_marginBottom="12dp">
 
-        <TextView
-            android:id="@+id/sampletext"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="15dp"
-            />
+            android:layout_marginVertical="30dp"
+            android:layout_marginHorizontal="4dp">
+
+            <TextView
+                android:id="@+id/Title2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="INDIA STATS"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:id="@+id/casesIndian2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10dp"
+                android:text="SAMPLE"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/Title2"
+                android:layout_marginTop="30dp"/>
+
+            <TextView
+                android:id="@+id/casesForeign2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10dp"
+                android:text="SAMPLE"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/casesIndian2"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/casesTotal2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10dp"
+                android:text="SAMPLE"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/casesForeign2"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/discharged2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10dp"
+                android:text="SAMPLE"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/casesTotal2"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/dead2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10dp"
+                android:text="SAMPLE"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/discharged2"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/locUnknown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10dp"
+                android:text="SAMPLE"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/dead2"
+                android:layout_marginTop="10dp"/>
+
+        </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
 
