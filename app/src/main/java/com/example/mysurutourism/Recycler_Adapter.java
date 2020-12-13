@@ -77,7 +77,7 @@ public class Recycler_Adapter extends RecyclerView.Adapter<Recycler_Adapter.Frag
         holder.textView.setText(Item.getItemName());
 
         Glide.with(mContext).load(Item.getItemImage())
-                .placeholder(R.drawable.icon_logo)
+                .placeholder(R.drawable.logo_cropped)
                 .circleCrop()
                 .into(holder.imageView);
 
