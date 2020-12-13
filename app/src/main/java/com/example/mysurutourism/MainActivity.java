@@ -41,24 +41,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }.start();
 /*
-        FirebaseDatabase.getInstance().getReference().child("Slider Image Data").addValueEventListener(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                        for(DataSnapshot dataSnapshot:snapshot.getChildren()){
-                            imageData.add(new SlideModel(dataSnapshot.child("url").getValue().toString(),dataSnapshot.child("title").getValue().toString(), ScaleTypes.FIT));
-                        }
-
-                        imageSlider.setImageList(imageData,ScaleTypes.FIT);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                }
-        );
 
  */
 

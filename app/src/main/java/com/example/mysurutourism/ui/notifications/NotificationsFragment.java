@@ -21,10 +21,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.bumptech.glide.request.RequestOptions;
-import com.denzcoskun.imageslider.ImageSlider;
-import com.denzcoskun.imageslider.constants.ScaleTypes;
-import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.mysurutourism.R;
 import com.example.mysurutourism.newsData;
 import com.smarteist.autoimageslider.SliderLayout;
@@ -63,8 +59,8 @@ public class NotificationsFragment extends Fragment {
         cardView3 = root.findViewById(R.id.Card_3);
 
         cardView1.animate().translationZ(50f).setDuration(1000).start();
-        cardView2.animate().translationZ(50f).translationX(262f).setDuration(1000).start();
-        cardView3.animate().translationZ(50f).translationX(-262f).setDuration(1000).start();
+        cardView2.animate().translationZ(50f).translationX(200f).setDuration(1000).start();
+        cardView3.animate().translationZ(50f).translationX(-200f).setDuration(1000).start();
 
         textView1 = root.findViewById(R.id.casesIndian);
         textView2 = root.findViewById(R.id.casesForeign);
@@ -91,6 +87,7 @@ public class NotificationsFragment extends Fragment {
         jsonNewsFeedReq();
         jsonCovidFeedReq();
 
+        setSliderViews();
         return root;
     }
 
@@ -102,24 +99,20 @@ public class NotificationsFragment extends Fragment {
 
             switch (i) {
                 case 0:
-                    sliderView.setImageUrl(newsDataList.get(0).getImageUrl());
-                    sliderView.setDescription(newsDataList.get(0).getTitle());
+                    sliderView.setImageUrl("https://i.ytimg.com/vi/uHOGt2yCzUI/maxresdefault.jpg");
+                    sliderView.setDescription("Inside COVID-19 vaccine development process - ABC 10 News");
                     break;
                 case 1:
-                    sliderView.setImageUrl(newsDataList.get(1).getImageUrl());
-                    sliderView.setDescription(newsDataList.get(1).getTitle());
+                    sliderView.setImageUrl("https://images.moneycontrol.com/static-mcnews/2020/02/Kerala-Chief-Minister-Pinarayi-Vijayan-addresses-during-an-event-organised-by-Mumbai-Collective-at-YB-Chavan-Auditorium-in-Mumbai-Feb-2-2020-PTI-770x433.jpg");
+                    sliderView.setDescription("COVID-19 vaccine will be provided free of cost in Kerala: CM Pinarayi Vijayan - Moneycontrol.com");
                     break;
                 case 2:
-                    sliderView.setImageUrl(newsDataList.get(2).getImageUrl());
-                    sliderView.setDescription(newsDataList.get(2).getTitle());
+                    sliderView.setImageUrl("https://c.ndtvimg.com/2020-12/18e24qv_coronavirus-vaccine-generic-reuters_625x300_10_December_20.jpg");
+                    sliderView.setDescription("100 People May Be Vaccinated Per Session: Centre's New SOP On Covid - NDTV");
                     break;
                 case 3:
-                    sliderView.setImageUrl(newsDataList.get(3).getImageUrl());
-                    sliderView.setDescription(newsDataList.get(3).getTitle());
-                    break;
-                case 4:
-                    sliderView.setImageUrl(newsDataList.get(4).getImageUrl());
-                    sliderView.setDescription(newsDataList.get(4).getTitle());
+                    sliderView.setImageUrl("https://akm-img-a-in.tosshub.com/indiatoday/images/story/202012/SII_vaccine_reuters-647x363.png?53RQSuQoQ.YwGEnXdn7TBnAiEWCwG9_y");
+                    sliderView.setDescription("India readies for 600 million Covid vaccine doses, to use standard cold storage, electoral rolls for distribution - India Today");
                     break;
             }
 
