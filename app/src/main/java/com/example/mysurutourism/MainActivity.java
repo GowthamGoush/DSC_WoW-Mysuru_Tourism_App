@@ -6,25 +6,17 @@ import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
-import com.denzcoskun.imageslider.ImageSlider;
-import com.denzcoskun.imageslider.constants.ScaleTypes;
-import com.denzcoskun.imageslider.models.SlideModel;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ImageSlider imageSlider;
-    private CardView cardView;
+    private ImageView logo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,20 +24,25 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        imageSlider = findViewById(R.id.image_slider);
-        cardView = findViewById(R.id.button1);
 
-        final Intent intent = new Intent(this,MainActivity2.class);
+        logo = findViewById(R.id.logo);
 
-        cardView.setOnClickListener(new View.OnClickListener() {
+        logo.animate().alpha(0f).rotationY(180f).setDuration(0).start();
+        logo.animate().alpha(0.9f).rotationYBy(180f).setDuration(1500).start();
+
+        CountDownTimer countDownTimer = new CountDownTimer(2000,1000) {
             @Override
-            public void onClick(View v) {
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                Intent intent = new Intent(MainActivity.this,MainActivity2.class);
                 startActivity(intent);
             }
-        });
-
-        final List<SlideModel> imageData = new ArrayList<>();
-
+        }.start();
+/*
         FirebaseDatabase.getInstance().getReference().child("Slider Image Data").addValueEventListener(
                 new ValueEventListener() {
                     @Override
@@ -64,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
+
+ */
 
 
 
