@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,35 +14,43 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.request.RequestOptions;
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.mysurutourism.R;
+import com.example.mysurutourism.newsData;
+import com.smarteist.autoimageslider.SliderLayout;
+import com.smarteist.autoimageslider.SliderView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Retrofit;
 
 public class NotificationsFragment extends Fragment {
 
+    private static final String ACCESS_TOKEN = "9e153bcedf7c432f9b6361bdae1ce8c6";
     private NotificationsViewModel notificationsViewModel;
     private CardView cardView1,cardView2,cardView3;
     private RequestQueue requestQueue,requestQueue1;
-    private ImageSlider imageSlider1;
-    private List<SlideModel> newsData;
+    private List<newsData> newsDataList;
     private TextView textView1,textView2,textView3,textView4,textView5;
     private TextView textView6,textView7,textView8,textView9,textView10,textView11;
+    SliderLayout sliderLayout;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -70,31 +79,58 @@ public class NotificationsFragment extends Fragment {
         textView10 = root.findViewById(R.id.dead2);
         textView11 = root.findViewById(R.id.locUnknown);
 
-        newsData = new ArrayList<>();
+        newsDataList = new ArrayList<>();
 
-        imageSlider1 = root.findViewById(R.id.newsCovid);
-
-        newsData.add(new SlideModel("https://bit.ly/2YoJ77H","India - Hindustan Times",ScaleTypes.FIT));
-        newsData.add(new SlideModel("https://bit.ly/2YoJ77H","India - Hindustan Times",ScaleTypes.FIT));
-        newsData.add(new SlideModel("https://bit.ly/2YoJ77H","India - Hindustan Times",ScaleTypes.FIT));
-        //newsData.add(new SlideModel("https://www.hindustantimes.com/rf/image_size_960x540/HT/p2/2020/12/12/Pictures/hindustan-coronavirus-december-infection-collects-hospital-gurugram_70b9feba-3c2f-11eb-b180-736642f23257.jpg","India - Hindustan Times",ScaleTypes.FIT));
-        //newsData.add(new SlideModel("https://www.hindustantimes.com/rf/image_size_960x540/HT/p2/2020/12/12/Pictures/hindustan-coronavirus-december-infection-collects-hospital-gurugram_70b9feba-3c2f-11eb-b180-736642f23257.jpg","India - Hindustan Times",ScaleTypes.FIT));
-
-        //imageSlider1.setImageList(newsData,ScaleTypes.FIT);
+        sliderLayout = root.findViewById(R.id.imageSlider);
+        sliderLayout.setIndicatorAnimation(SliderLayout.Animations.FILL);
+        sliderLayout.setScrollTimeInSec(1);
 
         requestQueue = Volley.newRequestQueue(getActivity());
         requestQueue1 = Volley.newRequestQueue(getActivity());
 
-        //jsonNewsFeedReq();
+        jsonNewsFeedReq();
         jsonCovidFeedReq();
 
         return root;
     }
 
+    private void setSliderViews() {
+
+        for (int i = 0; i <= 3; i++) {
+
+            SliderView sliderView = new SliderView(getActivity());
+
+            switch (i) {
+                case 0:
+                    sliderView.setImageUrl(newsDataList.get(0).getImageUrl());
+                    sliderView.setDescription(newsDataList.get(0).getTitle());
+                    break;
+                case 1:
+                    sliderView.setImageUrl(newsDataList.get(1).getImageUrl());
+                    sliderView.setDescription(newsDataList.get(1).getTitle());
+                    break;
+                case 2:
+                    sliderView.setImageUrl(newsDataList.get(2).getImageUrl());
+                    sliderView.setDescription(newsDataList.get(2).getTitle());
+                    break;
+                case 3:
+                    sliderView.setImageUrl(newsDataList.get(3).getImageUrl());
+                    sliderView.setDescription(newsDataList.get(3).getTitle());
+                    break;
+                case 4:
+                    sliderView.setImageUrl(newsDataList.get(4).getImageUrl());
+                    sliderView.setDescription(newsDataList.get(4).getTitle());
+                    break;
+            }
+
+            sliderView.setImageScaleType(ImageView.ScaleType.CENTER_CROP);
+            sliderLayout.addSliderView(sliderView);
+        }
+    }
+
     public void jsonNewsFeedReq(){
 
-        String apiKey = "9e153bcedf7c432f9b6361bdae1ce8c6";
-        String itemUrl = "http://newsapi.org/v2/top-headlines?"+"country=in"+"&q=covid"+"&apiKey"+apiKey;
+        String itemUrl = "http://newsapi.org/v2/top-headlines?"+"country=in"+"&q=covid&apiKey"+ACCESS_TOKEN;
 
         final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, itemUrl, null,
                 new Response.Listener<JSONObject>() {
@@ -109,10 +145,10 @@ public class NotificationsFragment extends Fragment {
                                 String title = jsonObject.getString("title");
                                 String imageUrl = jsonObject.getString("urlToImage");
 
-                                newsData.add(new SlideModel(imageUrl,title,ScaleTypes.FIT));
+                                newsDataList.add(new newsData(imageUrl,title));
                             }
 
-                            imageSlider1.setImageList(newsData,ScaleTypes.FIT);
+                            setSliderViews();
 
                         } catch (JSONException e) {
                             e.printStackTrace();

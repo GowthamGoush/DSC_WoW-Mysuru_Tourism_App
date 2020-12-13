@@ -1,6 +1,7 @@
 package com.example.mysurutourism;
 
 import android.app.Activity;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -35,23 +36,22 @@ public class Recycler_Adapter extends RecyclerView.Adapter<Recycler_Adapter.Frag
             textView = itemView.findViewById(R.id.resultName);
             cardView = itemView.findViewById(R.id.itemsCard);
             imageView = itemView.findViewById(R.id.resultImage2);
-/*
+
+            cardView.animate().translationZ(30f).start();
+
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     ItemDetails itemDetails = FragList.get(getAdapterPosition());
 
-                    Intent intent = new Intent(mActivity,MainActivity2.class);
-                    intent.putExtra("name",itemDetails.getItemName());
-                    intent.putExtra("image",itemDetails.getItemImage());
-                    intent.putExtra("url",itemDetails.getItemUrl());
+                    String query = itemDetails.getItemName();
+
+                    Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
+                    intent.putExtra(SearchManager.QUERY,query);
                     mActivity.startActivity(intent);
 
                 }
             });
-
- */
-
         }
     }
 
@@ -77,6 +77,7 @@ public class Recycler_Adapter extends RecyclerView.Adapter<Recycler_Adapter.Frag
         holder.textView.setText(Item.getItemName());
 
         Glide.with(mContext).load(Item.getItemImage())
+                .placeholder(R.drawable.icon_logo)
                 .circleCrop()
                 .into(holder.imageView);
 

@@ -26,18 +26,15 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="16dp"
+            android:layout_margin="24dp"
             >
-            <com.denzcoskun.imageslider.ImageSlider
-                android:id="@+id/newsCovid"
+
+            <com.smarteist.autoimageslider.SliderLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                app:iss_auto_cycle="true"
-                app:iss_period="1000"
-                app:iss_delay="0"
-                app:iss_title_background="@drawable/gradient"
-                />
+                android:layout_height="300dp"
+                android:layout_alignParentTop="true"
+                android:id="@+id/imageSlider"/>
+
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>

@@ -10,10 +10,25 @@
         android:id="@+id/spotsRecycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="12dp"
         android:layout_marginBottom="70dp"
-        android:background="@null"
-        />
+        android:background="@color/cardColor1" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/spotTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        app:cardCornerRadius="20dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Popular Tourist Spots"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:layout_marginHorizontal="24dp"/>
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>
